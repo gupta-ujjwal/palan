@@ -1,0 +1,19 @@
+{
+  "name": "Plant Care",
+  "short_name": "Plants",
+  "description": "Manage your home plant care schedule with reminders for watering, fertilizing, repotting, and pruning.",
+  "start_url": "/plants/",
+  "scope": "/plants/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#2d6a4f",
+  "background_color": "#f8f9fa",
+  "icons": [
+    {
+      "src": "/plants/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
