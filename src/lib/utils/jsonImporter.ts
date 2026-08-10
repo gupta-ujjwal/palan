@@ -102,7 +102,7 @@ export function validatePlant(raw: unknown): ValidationResult {
 }
 
 export function normalizePlant(raw: unknown, generateId: () => string): Plant {
-  const obj = { ...(raw as Record<string, unknown>) }
+  const obj = JSON.parse(JSON.stringify(raw)) as Record<string, unknown>
   const knownFields = new Set([
     'id',
     'name',
@@ -130,17 +130,17 @@ export function normalizePlant(raw: unknown, generateId: () => string): Plant {
   const plant: Plant = {
     id: (obj['id'] as string) || generateId(),
     name: obj['name'] as string,
-    nickname: obj['nickname'] as string | undefined,
-    species: obj['species'] as string | undefined,
+    nickname: (obj['nickname'] as string) || undefined,
+    species: (obj['species'] as string) || undefined,
     type: obj['type'] as string,
-    acquiredDate: obj['acquiredDate'] as string | undefined,
-    location: obj['location'] as string | undefined,
+    acquiredDate: (obj['acquiredDate'] as string) || undefined,
+    location: (obj['location'] as string) || undefined,
     images: (obj['images'] as Plant['images']) || undefined,
     careSchedule: obj['careSchedule'] as Plant['careSchedule'],
     environment: (obj['environment'] as Plant['environment']) || undefined,
     pestTracking: (obj['pestTracking'] as Plant['pestTracking']) || undefined,
     healthLog: (obj['healthLog'] as Plant['healthLog']) || [],
-    notes: (obj['notes'] as string | undefined) || undefined,
+    notes: (obj['notes'] as string) || undefined,
   }
 
   if (Object.keys(metadata).length > 0) {

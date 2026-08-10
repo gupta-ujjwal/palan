@@ -13,14 +13,18 @@ function createPlantsStore() {
     loaded = true
   }
 
+  function toPlain<T>(obj: T): T {
+    return JSON.parse(JSON.stringify(obj))
+  }
+
   async function add(plant: Plant) {
-    const plain = structuredClone(plant)
+    const plain = toPlain(plant)
     await addPlant(plain)
     update((plants) => [...plants, plain])
   }
 
   async function save(plant: Plant) {
-    const plain = structuredClone(plant)
+    const plain = toPlain(plant)
     await updatePlant(plain)
     update((plants) => plants.map((p) => (p.id === plain.id ? plain : p)))
   }

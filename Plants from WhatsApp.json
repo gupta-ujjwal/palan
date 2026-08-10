@@ -1,0 +1,628 @@
+[
+  {
+    "name": "Snake Plant",
+    "nickname": "Sap-wali",
+    "species": "Dracaena trifasciata (syn. Sansevieria trifasciata)",
+    "type": "Succulent",
+    "location": "Indoor, near entrance door / hallway",
+    "images": [
+      {
+        "type": "url",
+        "value": "images/1000088144.webp",
+        "label": "Snake plant in white ceramic pot with decorative pebbles, near entrance"
+      }
+    ],
+    "careSchedule": {
+      "watering": {
+        "frequencyDays": 14,
+        "notes": "Extremely drought-tolerant. Let soil dry out completely between waterings — root rot from overwatering is the #1 killer of this plant, far more likely than underwatering."
+      },
+      "fertilizing": {
+        "frequencyDays": 60,
+        "fertilizerType": "Balanced diluted liquid fertilizer (e.g. 10-10-10 at half strength)",
+        "notes": "Only feed during active growth (spring/summer); skip entirely in winter."
+      },
+      "repotting": {
+        "frequencyDays": 730,
+        "potSize": "Medium ceramic pot",
+        "soilType": "Well-draining cactus/succulent mix"
+      },
+      "pruning": {
+        "frequencyDays": 180,
+        "notes": "Remove any yellowing or damaged leaves at the base."
+      }
+    },
+    "environment": {
+      "light": "Tolerates low light but grows best in bright, indirect light",
+      "humidity": "Low to average; not humidity-sensitive",
+      "temperature": "15-29°C; avoid below 10°C",
+      "pruningStyle": "Cut damaged leaves at the soil line with a clean blade",
+      "notes": "Toughest plant on this list — near-impossible to kill through neglect, easy to kill through overwatering."
+    },
+    "notes": "One long leaf appears to be trailing a thin wire/string in the photo — worth checking it isn't constricting new growth."
+  },
+  {
+    "name": "Thryallis (Gold Shower)",
+    "nickname": "Sona Baarish",
+    "species": "Galphimia glauca",
+    "type": "Flowering shrub",
+    "location": "Balcony railing planter",
+    "images": [
+      {
+        "type": "url",
+        "value": "images/1000088155.webp",
+        "label": "Thryallis with yellow flower spikes, terracotta rectangular planter, street view behind"
+      },
+      {
+        "type": "url",
+        "value": "images/1000088154.webp",
+        "label": "Chrysanthemum bush in foreground with Thryallis pot visible alongside"
+      },
+      {
+        "type": "url",
+        "value": "images/1000088163.webp",
+        "label": "Thryallis flower spikes, confirmed as sharing its planter with Ixora, not the same plant"
+      },
+      {
+        "type": "url",
+        "value": "images/1000088162.webp",
+        "label": "Thryallis and Ixora planter, with chrysanthemum bush in the adjacent pot"
+      }
+    ],
+    "careSchedule": {
+      "watering": {
+        "frequencyDays": 3,
+        "notes": "Keep soil consistently moist but not waterlogged, especially in a shallow planter that dries fast in balcony sun. During Bangalore's August monsoon, natural rainfall likely reduces how often you need to top this up — check soil moisture before watering rather than sticking rigidly to a 3-day count."
+      },
+      "fertilizing": {
+        "frequencyDays": 21,
+        "fertilizerType": "Balanced NPK liquid feed",
+        "notes": "Regular feeding keeps the yellow flower spikes coming; it's a fairly heavy bloomer."
+      },
+      "repotting": {
+        "frequencyDays": 365,
+        "potSize": "Large rectangular terracotta planter",
+        "soilType": "Standard potting mix with compost"
+      },
+      "pruning": {
+        "frequencyDays": 60,
+        "notes": "Light shaping after flush of blooms fades encourages denser re-flowering."
+      }
+    },
+    "environment": {
+      "light": "Full sun to part sun for best flowering",
+      "humidity": "Average outdoor humidity is fine",
+      "temperature": "18-32°C; frost-sensitive",
+      "pruningStyle": "Trim leggy stems by a third after a bloom cycle",
+      "notes": "Fast-growing and fairly forgiving; good balcony plant for continuous color."
+    },
+    "notes": null
+  },
+  {
+    "name": "Peperomia (Raindrop)",
+    "nickname": "Gol Gappa",
+    "species": "Peperomia polybotrya",
+    "type": "Tropical / Foliage",
+    "location": "Balcony floor, near lantern and other potted plants",
+    "images": [
+      {
+        "type": "url",
+        "value": "images/1000088148.webp",
+        "label": "Peperomia in dark plastic pot, balcony corner with morning light"
+      }
+    ],
+    "careSchedule": {
+      "watering": {
+        "frequencyDays": 10,
+        "notes": "Semi-succulent leaves store water — let the top 2-3 inches of soil dry before watering again."
+      },
+      "fertilizing": {
+        "frequencyDays": 45,
+        "fertilizerType": "Diluted balanced liquid fertilizer",
+        "notes": "Light feeder; over-fertilizing causes leggy growth."
+      },
+      "repotting": {
+        "frequencyDays": 545,
+        "potSize": "Small-medium pot, currently slightly root-crowded",
+        "soilType": "Light, well-draining mix with perlite"
+      },
+      "pruning": {
+        "frequencyDays": 90,
+        "notes": "Pinch leggy stems to keep it bushy."
+      }
+    },
+    "environment": {
+      "light": "Bright, indirect light; some morning sun is fine",
+      "humidity": "Average to slightly humid",
+      "temperature": "18-27°C",
+      "pruningStyle": "Pinch above a leaf node",
+      "notes": null
+    },
+    "notes": null
+  },
+  {
+    "name": "Dahlia (White)",
+    "nickname": "Safed Rani",
+    "species": "Dahlia sp.",
+    "type": "Flowering perennial",
+    "location": "Balcony railing planter, shared with Chrysanthemum",
+    "images": [
+      {
+        "type": "url",
+        "value": "images/1000088150.webp",
+        "label": "White dahlia blooms and magenta chrysanthemum sharing a terracotta planter"
+      }
+    ],
+    "careSchedule": {
+      "watering": {
+        "frequencyDays": 3,
+        "notes": "Keep evenly moist; dahlias are thirsty bloomers and wilt quickly if the pot dries out in sun."
+      },
+      "fertilizing": {
+        "frequencyDays": 14,
+        "fertilizerType": "Low-nitrogen, higher phosphorus/potassium bloom booster",
+        "notes": "Too much nitrogen gives leafy growth at the cost of flowers."
+      },
+      "repotting": {
+        "frequencyDays": 365,
+        "potSize": "Shared rectangular planter",
+        "soilType": "Rich, well-draining potting mix"
+      },
+      "pruning": {
+        "frequencyDays": 10,
+        "notes": "Deadhead spent blooms regularly to keep new buds forming."
+      }
+    },
+    "environment": {
+      "light": "Full sun, at least 6 hours",
+      "humidity": "Average",
+      "temperature": "15-27°C; doesn't love extreme heat",
+      "pruningStyle": "Snip spent flower heads just above a leaf pair",
+      "notes": "Sharing a planter with a chrysanthemum means both compete for water/nutrients — worth watching if one starts outcompeting the other."
+    },
+    "notes": null
+  },
+  {
+    "name": "Chrysanthemum (Magenta)",
+    "nickname": "Guldaudi",
+    "species": "Chrysanthemum morifolium",
+    "type": "Flowering perennial",
+    "location": "Balcony railing planters",
+    "images": [
+      {
+        "type": "url",
+        "value": "images/1000088150.webp",
+        "label": "Magenta chrysanthemum blooms sharing planter with white dahlia"
+      },
+      {
+        "type": "url",
+        "value": "images/1000088151.webp",
+        "label": "Close-up of magenta chrysanthemum blooms"
+      },
+      {
+        "type": "url",
+        "value": "images/1000088154.webp",
+        "label": "Chrysanthemum bush, mostly foliage with buds not yet open"
+      },
+      {
+        "type": "url",
+        "value": "images/1000088162.webp",
+        "label": "Same feathery-leaved, not-yet-blooming chrysanthemum bush, next to the Thryallis/Ixora planter"
+      },
+      {
+        "type": "url",
+        "value": "images/1000088165.webp",
+        "label": "Not-yet-blooming chrysanthemum bush, with an orange Kalanchoe pot visible beside it"
+      },
+      {
+        "type": "url",
+        "value": "images/20260810_1117384672423473273991573.jpg",
+        "label": "Fully bloomed magenta and dark-purple chrysanthemum, sharing a planter with white dahlia"
+      }
+    ],
+    "careSchedule": {
+      "watering": {
+        "frequencyDays": 3,
+        "notes": "Likes consistently moist soil; wilts fast when dry, recovers well once watered. Outdoor pots will need less top-up watering during Bangalore's August rains — check soil before adding water."
+      },
+      "fertilizing": {
+        "frequencyDays": 14,
+        "fertilizerType": "Balanced liquid feed, switching to bloom booster once buds form",
+        "notes": null
+      },
+      "repotting": {
+        "frequencyDays": 365,
+        "potSize": "Shared/rectangular terracotta planters",
+        "soilType": "Rich, well-draining potting mix"
+      },
+      "pruning": {
+        "frequencyDays": 14,
+        "notes": "Deadhead spent flowers; pinch growing tips early in the season for bushier plants and more blooms."
+      }
+    },
+    "environment": {
+      "light": "Full sun for best blooming",
+      "humidity": "Average",
+      "temperature": "15-27°C",
+      "pruningStyle": "Deadhead and pinch tips",
+      "notes": "You weren't sure if these are the same plant, and the new photos actually point toward two separate pots rather than one: the leafy, not-yet-blooming bush consistently appears next to the Thryallis/Ixora planter and separately next to the orange Kalanchoe pot, while the fully bloomed magenta/purple chrysanthemum appears in its own planter alongside the white dahlia. Treating this as two chrysanthemum pots (one still budding, one in full bloom) is the safer read — worth a quick visual confirmation next time you're on the balcony."
+    },
+    "notes": "Likely two separate pots of chrysanthemums rather than one plant at different times — see environment notes."
+  },
+  {
+    "name": "Basil / Tulsi Seedlings",
+    "nickname": "Tulsi ke Bachche",
+    "species": "Ocimum sp. (likely Ocimum tenuiflorum / basilicum)",
+    "type": "Herb",
+    "location": "Balcony floor pot",
+    "images": [
+      {
+        "type": "url",
+        "value": "images/1000088147.webp",
+        "label": "Young seedlings/cuttings propagating in a grey textured pot"
+      }
+    ],
+    "careSchedule": {
+      "watering": {
+        "frequencyDays": 2,
+        "notes": "Seedlings have shallow roots and dry out fast — keep soil lightly moist, never soggy."
+      },
+      "fertilizing": {
+        "frequencyDays": 30,
+        "fertilizerType": "Diluted balanced liquid fertilizer, only once true leaves are established",
+        "notes": "Hold off feeding until seedlings are a few weeks old."
+      },
+      "repotting": {
+        "frequencyDays": 45,
+        "potSize": "Currently a shared starter pot — will need separating soon",
+        "soilType": "Light seed-starting mix"
+      },
+      "pruning": {
+        "frequencyDays": 30,
+        "notes": "Pinch tops once seedlings reach 4-6 leaves to encourage branching."
+      }
+    },
+    "environment": {
+      "light": "Bright light, several hours of direct sun once established",
+      "humidity": "Average",
+      "temperature": "20-30°C; sensitive to cold",
+      "pruningStyle": "Pinch above a leaf node",
+      "notes": "These look crowded in one pot — thinning/transplanting individual seedlings will help each one thrive."
+    },
+    "notes": null
+  },
+  {
+    "name": "Areca Palm",
+    "nickname": "Hariyali Sardar",
+    "species": "Dypsis lutescens",
+    "type": "Palm",
+    "location": "Living room corner, near sofa",
+    "images": [
+      {
+        "type": "url",
+        "value": "images/1000088143.webp",
+        "label": "Full, healthy areca palm in ribbed white ceramic pot next to sofa and guitar"
+      }
+    ],
+    "careSchedule": {
+      "watering": {
+        "frequencyDays": 7,
+        "notes": "Water when the top inch of soil is dry. Sensitive to fluoride/chlorine and salt buildup — tips brown if water quality or overwatering is an issue; filtered/rain water is ideal."
+      },
+      "fertilizing": {
+        "frequencyDays": 60,
+        "fertilizerType": "Balanced liquid palm fertilizer",
+        "notes": "Feed only spring through summer."
+      },
+      "repotting": {
+        "frequencyDays": 730,
+        "potSize": "Large ceramic pot",
+        "soilType": "Well-draining potting mix with peat/coco coir"
+      },
+      "pruning": {
+        "frequencyDays": 120,
+        "notes": "Trim fully brown fronds at the base; leave partially yellow ones until fully brown."
+      }
+    },
+    "environment": {
+      "light": "Bright, indirect light; avoid direct harsh sun",
+      "humidity": "Prefers higher humidity — mist occasionally or use a pebble tray indoors",
+      "temperature": "18-27°C",
+      "pruningStyle": "Cut spent fronds at the base with clean shears",
+      "notes": "Looks like the healthiest plant in the collection — good indoor light and consistent care."
+    },
+    "notes": null
+  },
+  {
+    "name": "Kalanchoe (Orange)",
+    "nickname": "Kesariya Kali",
+    "species": "Kalanchoe blossfeldiana",
+    "type": "Succulent / Flowering",
+    "location": "Balcony railing planter, shared with Rose",
+    "images": [
+      {
+        "type": "url",
+        "value": "images/1000088153.webp",
+        "label": "Orange kalanchoe blooms sharing planter with red rose"
+      },
+      {
+        "type": "url",
+        "value": "images/1000088152.webp",
+        "label": "Kalanchoe and rose, wider angle showing shared planter"
+      },
+      {
+        "type": "url",
+        "value": "images/20260810_1117546818330114364860667.jpg",
+        "label": "Close-up of orange kalanchoe clusters sharing the planter with red and dark-red roses"
+      }
+    ],
+    "careSchedule": {
+      "watering": {
+        "frequencyDays": 10,
+        "notes": "Succulent-type — let soil dry between waterings. Being in a planter shared with a thirstier rose means watch for overwatering here specifically."
+      },
+      "fertilizing": {
+        "frequencyDays": 30,
+        "fertilizerType": "Diluted balanced liquid fertilizer",
+        "notes": null
+      },
+      "repotting": {
+        "frequencyDays": 365,
+        "potSize": "Shared rectangular planter",
+        "soilType": "Well-draining mix; ideally a sandier mix than what the rose needs"
+      },
+      "pruning": {
+        "frequencyDays": 30,
+        "notes": "Deadhead spent flower clusters to prolong blooming."
+      }
+    },
+    "environment": {
+      "light": "Bright light, several hours of direct sun for reblooming",
+      "humidity": "Low; dislikes wet, humid conditions",
+      "temperature": "16-27°C",
+      "pruningStyle": "Snip spent flower stalks",
+      "notes": "Kalanchoe wants drier soil than roses — sharing a pot is workable but not ideal long-term; consider separating if either starts struggling."
+    },
+    "notes": null
+  },
+  {
+    "name": "Rose (Red)",
+    "nickname": "Gulab Rani",
+    "species": "Rosa sp. (hybrid tea/miniature type)",
+    "type": "Flowering shrub",
+    "location": "Balcony railing planter, shared with Kalanchoe",
+    "images": [
+      {
+        "type": "url",
+        "value": "images/1000088153.webp",
+        "label": "Red rose bloom sharing planter with orange kalanchoe"
+      },
+      {
+        "type": "url",
+        "value": "images/1000088152.webp",
+        "label": "Two red rose blooms with orange kalanchoe alongside"
+      },
+      {
+        "type": "url",
+        "value": "images/20260810_1117546818330114364860667.jpg",
+        "label": "Close-up showing at least 3-4 rose blooms including a darker maroon variety, plus kalanchoe alongside"
+      }
+    ],
+    "careSchedule": {
+      "watering": {
+        "frequencyDays": 3,
+        "notes": "Roses want consistently moist (not soggy) soil, deep watering rather than frequent shallow sips. Bangalore's August rains should reduce the need for manual top-ups outdoors — check soil moisture rather than watering on autopilot, since roses also dislike sitting in waterlogged soil during heavy rain spells."
+      },
+      "fertilizing": {
+        "frequencyDays": 21,
+        "fertilizerType": "Rose-specific fertilizer (balanced NPK with micronutrients)",
+        "notes": "Feed during active growth/blooming season, hold back in dormancy."
+      },
+      "repotting": {
+        "frequencyDays": 365,
+        "potSize": "Shared rectangular planter — on the small side for a rose long-term",
+        "soilType": "Rich loamy mix with good drainage"
+      },
+      "pruning": {
+        "frequencyDays": 45,
+        "notes": "Deadhead spent blooms just above a 5-leaflet leaf; harder structural prune once a year in the dormant season."
+      }
+    },
+    "environment": {
+      "light": "Full sun, 6+ hours",
+      "humidity": "Average; good airflow helps prevent fungal issues",
+      "temperature": "15-28°C",
+      "pruningStyle": "Angled cut above an outward-facing bud",
+      "notes": "Watch for blackspot/powdery mildew given balcony humidity; the shared planter with kalanchoe may run drier than roses prefer."
+    },
+    "notes": "The close-up shows what look like two rose color variants in this planter — bright red and a darker maroon/burgundy. Could be two different rose plants rather than one, worth a glance next time you're watering."
+  },
+  {
+    "name": "Ixora (Jungle Flame)",
+    "nickname": "Rangeeli Ixora",
+    "species": "Ixora coccinea",
+    "type": "Flowering shrub",
+    "location": "Balcony railing planter, interplanted with Thryallis",
+    "images": [
+      {
+        "type": "url",
+        "value": "images/1000088156.webp",
+        "label": "Ixora with glossy leaves and red buds, Thryallis flowering alongside"
+      },
+      {
+        "type": "url",
+        "value": "images/1000088163.webp",
+        "label": "Close-up confirming red buds and glossy oval leaves typical of Ixora coccinea"
+      },
+      {
+        "type": "url",
+        "value": "images/1000088162.webp",
+        "label": "Wider shot confirming Ixora and Thryallis as two distinct plants sharing one planter, chrysanthemum bush nearby"
+      }
+    ],
+    "careSchedule": {
+      "watering": {
+        "frequencyDays": 3,
+        "notes": "Likes consistently moist soil, doesn't tolerate drying out well — buds can drop if it goes too dry between waterings. In Bangalore's August monsoon, outdoor rainfall may cover most of this on its own; check soil before adding more water rather than watering on a fixed schedule."
+      },
+      "fertilizing": {
+        "frequencyDays": 21,
+        "fertilizerType": "Acidic-leaning fertilizer (Ixora prefers slightly acidic soil, similar to hibiscus feed)",
+        "notes": "Yellowing between leaf veins on Ixora is often an iron/micronutrient deficiency from soil pH being too alkaline — worth watching for."
+      },
+      "repotting": {
+        "frequencyDays": 365,
+        "potSize": "Shared rectangular terracotta planter with Thryallis",
+        "soilType": "Well-draining, slightly acidic potting mix"
+      },
+      "pruning": {
+        "frequencyDays": 60,
+        "notes": "Deadhead spent flower clusters; light shaping keeps it compact and blooming."
+      }
+    },
+    "environment": {
+      "light": "Full sun to bright part sun for best flowering",
+      "humidity": "Likes humidity — Bangalore's monsoon-season air should suit it well",
+      "temperature": "20-32°C; sensitive to cold snaps",
+      "pruningStyle": "Snip spent flower clusters just above a leaf node",
+      "notes": "Confirmed as Ixora coccinea from the close-up — glossy leaves and clustered red buds are a clear match."
+    },
+    "notes": "Grows in the same planter as the Thryallis but is a separate plant, per your confirmation."
+  },
+  {
+    "name": "Syngonium Living Wall",
+    "nickname": "Deewar wali Bel",
+    "species": "Syngonium podophyllum (pink and green cultivars, arrowhead vine)",
+    "type": "Tropical / Vertical garden",
+    "location": "Outdoor vertical planter wall structure",
+    "images": [
+      {
+        "type": "url",
+        "value": "images/1000088146.webp",
+        "label": "Vertical living wall of syngonium, mixed pink and green varieties, many leaves dried/browning"
+      },
+      {
+        "type": "url",
+        "value": "images/1000088149.webp",
+        "label": "Close-up of dried, hanging syngonium leaves at top of the living wall"
+      }
+    ],
+    "careSchedule": {
+      "watering": {
+        "frequencyDays": 3,
+        "notes": "URGENT: this wall looks significantly under-watered/stressed — large portions are dried and crispy. Vertical planters drain and dry fast, especially upper rows. Consider checking the irrigation drippers are actually reaching every cell, not just watering frequency."
+      },
+      "fertilizing": {
+        "frequencyDays": 45,
+        "fertilizerType": "Balanced diluted liquid fertilizer",
+        "notes": "Hold off feeding stressed sections until they recover — fertilizing dry, damaged roots can do more harm than good."
+      },
+      "repotting": {
+        "frequencyDays": 365,
+        "potSize": "Individual cells in modular vertical planter system",
+        "soilType": "Light, moisture-retentive mix (coco coir blend works well in vertical systems)"
+      },
+      "pruning": {
+        "frequencyDays": 14,
+        "notes": "Cut away fully dead/brown growth now to redirect energy to the still-green sections, and to assess how much of the wall is actually salvageable."
+      }
+    },
+    "environment": {
+      "light": "Bright, indirect light; the pink cultivars in particular need decent light to hold color without scorching",
+      "humidity": "Prefers higher humidity — vertical outdoor walls can dry out fast in wind/sun",
+      "temperature": "18-29°C",
+      "pruningStyle": "Cut dead vines back to green, healthy stem",
+      "notes": "This is the one plant grouping on the list that needs real intervention, not just routine care — the ratio of brown/dried to green in the photos suggests either an irrigation failure or a prolonged dry spell."
+    },
+    "notes": "Flagging this as the priority: worth checking the irrigation system on this wall specifically before anything else on the list."
+  },
+  {
+    "name": "Purple Heart (Tradescantia)",
+    "nickname": "Baingani Dil",
+    "species": "Tradescantia pallida (or T. zebrina — leaf shape suggests pallida)",
+    "type": "Trailing succulent-adjacent foliage",
+    "location": "Near the living wall structure, on the floor",
+    "images": [
+      {
+        "type": "url",
+        "value": "images/1000088145.webp",
+        "label": "Purple/violet tradescantia in white pot, dried living wall visible behind"
+      }
+    ],
+    "careSchedule": {
+      "watering": {
+        "frequencyDays": 5,
+        "notes": "Fairly drought-tolerant once established; let soil dry somewhat between waterings, but don't neglect for too long or lower leaves shrivel."
+      },
+      "fertilizing": {
+        "frequencyDays": 45,
+        "fertilizerType": "Diluted balanced liquid fertilizer",
+        "notes": null
+      },
+      "repotting": {
+        "frequencyDays": 365,
+        "potSize": "Small-medium pot",
+        "soilType": "Well-draining potting mix"
+      },
+      "pruning": {
+        "frequencyDays": 45,
+        "notes": "Pinch/trim leggy trailing stems to keep it full; trimmings root easily in water if you want more plants."
+      }
+    },
+    "environment": {
+      "light": "Bright light to some direct sun — purple color intensifies with more light, fades to green in low light",
+      "humidity": "Average",
+      "temperature": "15-27°C",
+      "pruningStyle": "Pinch above a node",
+      "notes": null
+    },
+    "notes": null
+  },
+  {
+    "name": "Philodendron (Large-leaf)",
+    "nickname": "Bada Patta",
+    "species": "Philodendron sp. (large arrow-shaped leaves — possibly P. giganteum or similar large-leaf hybrid)",
+    "type": "Tropical / Foliage",
+    "location": "Indoor hallway, near kitchen entrance",
+    "images": [
+      {
+        "type": "url",
+        "value": "images/1000088145.webp",
+        "label": "Wider indoor hallway shot, near kitchen entrance"
+      },
+      {
+        "type": "url",
+        "value": "images/1000088164.webp",
+        "label": "Close-up clearly showing marginal leaf browning, one fully yellowed leaf with brown spotting, and a curling/drooping habit"
+      }
+    ],
+    "careSchedule": {
+      "watering": {
+        "frequencyDays": 7,
+        "notes": "Water when the top inch or two of soil is dry. You weren't sure of the recent watering pattern, so treat this as a starting point rather than a fix — the close-up shows classic marginal browning (crispy edges working inward) plus one leaf that's gone fully yellow with brown spotting, which most often points to a stretch of underwatering or a dry indoor environment rather than overwatering (overwatered leaves usually go soft and mushy, not crispy at the margins)."
+      },
+      "fertilizing": {
+        "frequencyDays": 30,
+        "fertilizerType": "Balanced liquid fertilizer",
+        "notes": "Hold off feeding until you've settled on a consistent watering rhythm — feeding a plant that's dealing with a watering/humidity issue won't fix the underlying cause and can add salt stress on top of it."
+      },
+      "repotting": {
+        "frequencyDays": 545,
+        "potSize": "Medium ribbed ceramic pot with saucer",
+        "soilType": "Chunky aroid mix (bark, perlite, peat/coco coir)"
+      },
+      "pruning": {
+        "frequencyDays": 60,
+        "notes": "Remove the fully brown/crisped leaf visible in the photo — it won't recover and is drawing energy away from healthy growth."
+      }
+    },
+    "environment": {
+      "light": "Bright, indirect light",
+      "humidity": "Prefers moderate-high humidity; indoor hallway air can be drier than this plant likes",
+      "temperature": "18-27°C",
+      "pruningStyle": "Cut fully damaged leaves at the base of the petiole",
+      "notes": "The leaf browning pattern (edges in first, following the leaf margin, one leaf gone fully yellow with brown blotching) leans toward underwatering and/or low ambient humidity for this genus — the close-up rules out the mushy/translucent look typical of overwatering."
+    },
+    "notes": "Since the recent care history is unknown, the most useful next step is simply establishing a consistent watering check (finger-test the soil every few days) rather than guessing further from photos. The damaged leaves themselves won't recover — safe to trim them once you're confident the cause is addressed, so the plant isn't spending energy on tissue that's already gone."
+  }
+]
