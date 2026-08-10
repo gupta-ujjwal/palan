@@ -1,5 +1,5 @@
 const CACHE_NAME = 'plant-care-v1'
-const APP_SHELL = ['/plants/', '/plants/index.html', '/plants/manifest.json', '/plants/favicon.svg']
+const APP_SHELL = ['/', '/index.html', '/manifest.json', '/favicon.svg']
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -51,7 +51,7 @@ self.addEventListener('notificationclick', (event) => {
       if (clientList.length > 0) {
         return clientList[0].focus()
       }
-      return clients.openWindow('/plants/')
+      return clients.openWindow('/')
     }),
   )
 })
@@ -73,7 +73,7 @@ async function checkDueTasks() {
       `Palan: ${dueTasks.length} task${dueTasks.length > 1 ? 's' : ''} today`,
       {
         body: taskList,
-        icon: '/plants/favicon.svg',
+        icon: '/favicon.svg',
         tag: 'plant-care-daily',
       },
     )

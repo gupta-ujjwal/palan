@@ -15,7 +15,7 @@ export async function requestNotificationPermission(): Promise<NotificationPermi
 export async function registerServiceWorker(): Promise<ServiceWorkerRegistration | null> {
   if (!('serviceWorker' in navigator)) return null
   try {
-    const reg = await navigator.serviceWorker.register('/plants/sw.js')
+    const reg = await navigator.serviceWorker.register('/sw.js')
     return reg
   } catch {
     return null
@@ -44,7 +44,7 @@ export function checkAndNotify(plants: Plant[]): void {
   try {
     new Notification(title, {
       body: taskList,
-      icon: '/plants/favicon.svg',
+      icon: '/favicon.svg',
       tag: 'plant-care-daily',
     })
     localStorage.setItem('lastNotificationDate', todayStr)

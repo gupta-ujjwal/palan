@@ -126,7 +126,7 @@ public/
 
 ## Deployment
 
-The app is configured for GitHub Pages with `base: '/plants/'` in `vite.config.ts`.
+The app is configured for GitHub Pages with `base: '/'` in `vite.config.ts`.
 
 ```bash
 npm run build
