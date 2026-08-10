@@ -2,15 +2,15 @@
   "name": "Palan — Plant Care",
   "short_name": "Palan",
   "description": "Manage your home plant care schedule with reminders for watering, fertilizing, repotting, and pruning.",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/palan/",
+  "scope": "/palan/",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#2d6a4f",
   "background_color": "#f8f9fa",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/palan/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"

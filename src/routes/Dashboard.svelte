@@ -37,7 +37,7 @@
 <div class="dashboard">
   <header class="dash-header">
     <div class="brand">
-      <img src="/favicon.svg" alt="Palan" class="brand-logo" />
+      <img src="/palan/favicon.svg" alt="Palan" class="brand-logo" />
       <h1>Today</h1>
     </div>
     <p class="date">{todayStr}</p>
