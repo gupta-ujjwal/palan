@@ -39,7 +39,7 @@ export function checkAndNotify(plants: Plant[]): void {
     )
     .join(', ')
 
-  const title = `Plant Care: ${dueTasks.length} task${dueTasks.length > 1 ? 's' : ''} today`
+  const title = `Palan: ${dueTasks.length} task${dueTasks.length > 1 ? 's' : ''} today`
 
   try {
     new Notification(title, {

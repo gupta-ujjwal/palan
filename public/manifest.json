@@ -1,6 +1,6 @@
 {
-  "name": "Plant Care",
-  "short_name": "Plants",
+  "name": "Palan — Plant Care",
+  "short_name": "Palan",
   "description": "Manage your home plant care schedule with reminders for watering, fertilizing, repotting, and pruning.",
   "start_url": "/plants/",
   "scope": "/plants/",

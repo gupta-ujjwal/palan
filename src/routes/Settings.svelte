@@ -38,7 +38,7 @@
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = `plant-care-export-${new Date().toISOString().slice(0, 10)}.json`
+      a.download = `palan-export-${new Date().toISOString().slice(0, 10)}.json`
       a.click()
       URL.revokeObjectURL(url)
     })
@@ -104,7 +104,7 @@
 
   <section class="settings-section">
     <h2>About</h2>
-    <p class="about-text">Plant Care v0.1.0</p>
+    <p class="about-text">Palan v0.1.0</p>
     <p class="about-text">
       A fully client-side plant care manager. Your data never leaves your device.
     </p>

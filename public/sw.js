@@ -70,7 +70,7 @@ async function checkDueTasks() {
     const taskList = dueTasks.map((t) => `${t.name} needs ${t.action}`).join(', ')
 
     await self.registration.showNotification(
-      `Plant Care: ${dueTasks.length} task${dueTasks.length > 1 ? 's' : ''} today`,
+      `Palan: ${dueTasks.length} task${dueTasks.length > 1 ? 's' : ''} today`,
       {
         body: taskList,
         icon: '/plants/favicon.svg',

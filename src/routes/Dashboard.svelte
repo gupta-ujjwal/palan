@@ -36,7 +36,10 @@
 
 <div class="dashboard">
   <header class="dash-header">
-    <h1>Today</h1>
+    <div class="brand">
+      <img src="/plants/favicon.svg" alt="Palan" class="brand-logo" />
+      <h1>Today</h1>
+    </div>
     <p class="date">{todayStr}</p>
     <div class="stats">
       <div class="stat">
@@ -123,6 +126,18 @@
 
   .dash-header {
     margin-bottom: 1rem;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .brand-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
   }
 
   .dash-header h1 {
