@@ -14,13 +14,15 @@ function createPlantsStore() {
   }
 
   async function add(plant: Plant) {
-    await addPlant(plant)
-    update((plants) => [...plants, plant])
+    const plain = structuredClone(plant)
+    await addPlant(plain)
+    update((plants) => [...plants, plain])
   }
 
   async function save(plant: Plant) {
-    await updatePlant(plant)
-    update((plants) => plants.map((p) => (p.id === plant.id ? plant : p)))
+    const plain = structuredClone(plant)
+    await updatePlant(plain)
+    update((plants) => plants.map((p) => (p.id === plain.id ? plain : p)))
   }
 
   async function remove(id: string) {
