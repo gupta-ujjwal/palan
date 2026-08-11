@@ -74,6 +74,36 @@
     await plantsStore.reload()
   }
 
+  async function handleWaterAllOverdue() {
+    const overdue = $overdueTasks.filter((t) => t.careType === 'watering')
+    const seenPlants = new Set<string>()
+
+    for (const task of overdue.sort((a, b) => a.daysUntilDue - b.daysUntilDue)) {
+      if (seenPlants.has(task.plantId)) continue
+      seenPlants.add(task.plantId)
+
+      const before = await getPlant(task.plantId)
+      const previousLastDone = before?.careSchedule.watering.lastDone
+      await logCareAction(task.plantId, 'watering')
+
+      if (!pendingUndo) {
+        const timer = setTimeout(() => {
+          pendingUndo = null
+        }, 5000)
+        pendingUndo = {
+          plantId: task.plantId,
+          plantName: task.plantNickname ?? task.plantName,
+          careType: 'watering',
+          previousLastDone,
+          timer,
+        }
+      }
+    }
+
+    await plantsStore.reload()
+    activeCelebration = rollCelebration()
+  }
+
   function handlePestView() {
     onNavigate('plants')
   }
@@ -107,6 +137,15 @@
   {/if}
 
   <StreakBanner />
+
+  {#if $taskStats.totalPlants > 0}
+    {@const waterableOverdue = $overdueTasks.filter((t) => t.careType === 'watering').length}
+    {#if waterableOverdue >= 2}
+      <button class="bulk-water" onclick={handleWaterAllOverdue}>
+        💧 Water all {waterableOverdue} overdue plants
+      </button>
+    {/if}
+  {/if}
 
   {#if $taskStats.totalPlants === 0}
     <div class="empty-state">
@@ -345,5 +384,27 @@
     font-size: 0.85rem;
     font-weight: 600;
     flex-shrink: 0;
+  }
+
+  .bulk-water {
+    display: block;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    margin-bottom: 1rem;
+    background: var(--color-surface);
+    border: 2px dashed var(--color-primary-light);
+    border-radius: var(--radius);
+    color: var(--color-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background 0.15s,
+      border-color 0.15s;
+  }
+
+  .bulk-water:active {
+    background: var(--color-primary-light);
+    color: white;
   }
 </style>
