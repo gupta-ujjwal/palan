@@ -4,6 +4,8 @@
   import { computeStreak } from '../lib/engagement/streaks'
   import { computeUnlockedBadges, BADGE_DEFINITIONS, type BadgeDefinition } from '../lib/engagement/badges'
   import { computeVitality, VITALITY_METADATA } from '../lib/engagement/vitality'
+  import { isCloudSyncEnabled, getCurrentUser } from '../lib/sync/supabase'
+  import { getFriendStreaks, type FriendStreak } from '../lib/sync/sync'
 
   let streak = $derived(computeStreak($plantsStore))
 
@@ -44,6 +46,17 @@
       counts[v.stage]++
     }
     return counts
+  })
+
+  let friends = $state<FriendStreak[]>([])
+  let syncEnabled = $state(isCloudSyncEnabled())
+
+  $effect(() => {
+    if (!syncEnabled) return
+    getCurrentUser().then(async (u) => {
+      if (!u) return
+      friends = await getFriendStreaks(u.id)
+    })
   })
 </script>
 
@@ -93,6 +106,20 @@
       </div>
     {/if}
   </section>
+
+  {#if syncEnabled && friends.length > 0}
+    <section class="card" aria-label="Friend streaks">
+      <h2>Friends</h2>
+      <ul class="friend-list">
+        {#each friends as friend (friend.friendId)}
+          <li class="friend">
+            <span class="friend-name">{friend.displayName}</span>
+            <span class="friend-streak">🔥 {friend.currentStreak}</span>
+          </li>
+        {/each}
+      </ul>
+    </section>
+  {/if}
 
   <section class="card" aria-label="Badges">
     <h2>Badges</h2>
@@ -292,5 +319,34 @@
     font-size: 0.7rem;
     color: #b565a7;
     margin-top: 0.15rem;
+  }
+
+  .friend-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .friend {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f1f3f5;
+  }
+
+  .friend:last-child {
+    border-bottom: none;
+  }
+
+  .friend-name {
+    color: #212529;
+    font-size: 0.95rem;
+  }
+
+  .friend-streak {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e76f51;
   }
 </style>

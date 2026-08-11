@@ -3,6 +3,7 @@
   import { exportAllData, clearAllData } from '../lib/db/plants'
   import { plantsStore } from '../lib/stores/plants'
   import type { AppSettings } from '../lib/types/plant'
+  import CloudSyncSection from '../lib/components/CloudSyncSection.svelte'
 
   let settings = $state<AppSettings>({ ...DEFAULT_SETTINGS })
   let showClearConfirm = $state(false)
@@ -159,6 +160,11 @@
         🗑️ Clear All Data
       </button>
     {/if}
+  </section>
+
+  <section class="settings-section">
+    <h2>Cloud Sync (optional)</h2>
+    <CloudSyncSection />
   </section>
 
   <section class="settings-section">
