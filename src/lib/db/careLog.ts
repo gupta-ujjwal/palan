@@ -26,6 +26,37 @@ export async function logCareAction(
   await db.plants.update(plantId, { healthLog, careSchedule })
 }
 
+export async function undoLastCareAction(
+  plantId: string,
+  action: HealthLogAction,
+  previousLastDone: string | undefined,
+): Promise<void> {
+  const plant = await db.plants.get(plantId)
+  if (!plant) return
+
+  const healthLog = [...(plant.healthLog ?? [])]
+  for (let i = healthLog.length - 1; i >= 0; i--) {
+    if (healthLog[i].action === action) {
+      healthLog.splice(i, 1)
+      break
+    }
+  }
+
+  const careSchedule = { ...plant.careSchedule }
+  const careEntry = careSchedule[action]
+  if (careEntry) {
+    const next = { ...careEntry }
+    if (previousLastDone === undefined) {
+      delete next.lastDone
+    } else {
+      next.lastDone = previousLastDone
+    }
+    careSchedule[action] = next
+  }
+
+  await db.plants.update(plantId, { healthLog, careSchedule })
+}
+
 export async function addPestEntry(plantId: string, entry: PestEntry): Promise<void> {
   const plant = await db.plants.get(plantId)
   if (!plant) return

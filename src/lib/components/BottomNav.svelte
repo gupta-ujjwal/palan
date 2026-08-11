@@ -4,6 +4,7 @@
   const tabs = [
     { id: 'tasks', label: 'Tasks', icon: '📋' },
     { id: 'plants', label: 'Plants', icon: '🌿' },
+    { id: 'growth', label: 'Growth', icon: '🌟' },
     { id: 'settings', label: 'Settings', icon: '⚙️' },
   ]
 </script>

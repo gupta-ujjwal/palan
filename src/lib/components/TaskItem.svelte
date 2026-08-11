@@ -29,7 +29,16 @@
       <span class="task-due">In {task.daysUntilDue} day{task.daysUntilDue > 1 ? 's' : ''}</span>
     {/if}
   </div>
-  <button class="done-btn" onclick={() => onDone(task)} aria-label="Mark done"> ✓ </button>
+  <button
+    class="done-btn"
+    onclick={(e) => {
+      e.stopPropagation()
+      onDone(task)
+    }}
+    aria-label="Mark done"
+  >
+    ✓
+  </button>
 </div>
 
 <style>

@@ -15,6 +15,9 @@ dist-ssr
 # Working notes (scratch — not committed)
 notes/
 
+# Playwright MCP trace/log artifacts (browser automation scratch)
+.playwright-mcp/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
