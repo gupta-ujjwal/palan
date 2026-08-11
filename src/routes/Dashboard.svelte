@@ -4,6 +4,7 @@
   import { getUnresolvedPests, logCareAction } from '../lib/db/careLog'
   import TaskItem from '../lib/components/TaskItem.svelte'
   import PestAlert from '../lib/components/PestAlert.svelte'
+  import StreakBanner from '../lib/components/StreakBanner.svelte'
   import { today as todayDate, formatDate } from '../lib/utils/dates'
   import type { CareTask } from '../lib/types/plant'
 
@@ -60,6 +61,8 @@
   {#if pestInfo.count > 0}
     <PestAlert count={pestInfo.count} plantNames={pestInfo.plantNames} onView={handlePestView} />
   {/if}
+
+  <StreakBanner />
 
   {#if $taskStats.totalPlants === 0}
     <div class="empty-state">

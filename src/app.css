@@ -8,6 +8,10 @@
   --color-text-muted: #6c757d;
   --color-danger: #e63946;
   --color-warning: #f4a261;
+  --color-streak: #e76f51;
+  --color-streak-light: #f6bd60;
+  --color-grace: #83c5be;
+  --color-celebration: #b565a7;
   --radius: 12px;
   --shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
