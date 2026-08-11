@@ -1,7 +1,8 @@
 <script lang="ts">
   import { dueTasks, overdueTasks, todayTasks, upcomingTasks, taskStats } from '../lib/stores/tasks'
   import { plantsStore } from '../lib/stores/plants'
-  import { getUnresolvedPests, logCareAction } from '../lib/db/careLog'
+  import { getUnresolvedPests, logCareAction, undoLastCareAction } from '../lib/db/careLog'
+  import { getPlant } from '../lib/db/plants'
   import TaskItem from '../lib/components/TaskItem.svelte'
   import PestAlert from '../lib/components/PestAlert.svelte'
   import StreakBanner from '../lib/components/StreakBanner.svelte'
@@ -28,10 +29,49 @@
     return unsub
   })
 
+  interface PendingUndo {
+    plantId: string
+    plantName: string
+    careType: CareTask['careType']
+    previousLastDone?: string
+    timer: ReturnType<typeof setTimeout>
+  }
+
+  let pendingUndo = $state<PendingUndo | null>(null)
+
+  function scheduleUndoClear() {
+    if (pendingUndo) clearTimeout(pendingUndo.timer)
+  }
+
   async function handleDone(task: CareTask) {
+    scheduleUndoClear()
+    const before = await getPlant(task.plantId)
+    const previousLastDone = before?.careSchedule[task.careType]?.lastDone
+
     await logCareAction(task.plantId, task.careType)
     await plantsStore.reload()
+
+    const timer = setTimeout(() => {
+      pendingUndo = null
+    }, 5000)
+    pendingUndo = {
+      plantId: task.plantId,
+      plantName: task.plantNickname ?? task.plantName,
+      careType: task.careType,
+      previousLastDone,
+      timer,
+    }
+
     activeCelebration = rollCelebration()
+  }
+
+  async function handleUndo() {
+    const p = pendingUndo
+    if (!p) return
+    scheduleUndoClear()
+    await undoLastCareAction(p.plantId, p.careType, p.previousLastDone)
+    pendingUndo = null
+    await plantsStore.reload()
   }
 
   function handlePestView() {
@@ -125,6 +165,13 @@
   {/if}
 
   <Celebration celebration={activeCelebration} onClose={() => (activeCelebration = null)} />
+
+  {#if pendingUndo}
+    <div class="undo-toast" role="status">
+      <span>Marked done — {pendingUndo.plantName}</span>
+      <button class="undo-btn" onclick={handleUndo}>Undo</button>
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -267,5 +314,36 @@
 
   .upcoming-section {
     opacity: 0.75;
+  }
+
+  .undo-toast {
+    position: fixed;
+    bottom: 96px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 190;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+    font-size: 0.85rem;
+    color: var(--color-text);
+    max-width: 90vw;
+  }
+
+  .undo-btn {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    flex-shrink: 0;
   }
 </style>
