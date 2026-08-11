@@ -3,6 +3,7 @@
   import type { Plant } from './lib/types/plant'
   import { plantsStore } from './lib/stores/plants'
   import { getAllPlants } from './lib/db/plants'
+  import { db } from './lib/db/database'
   import {
     registerServiceWorker,
     startNotificationTimer,
@@ -54,12 +55,14 @@
     const init = async () => {
       await plantsStore.load()
       await registerServiceWorker()
+      const settings = await db.appSettings.get('settings')
+      const getSettings = () => settings
       startNotificationTimer(() => {
         let plants: Plant[] = []
         plantsStore.subscribe((p) => (plants = p))()
         return plants
-      })
-      checkAndNotify(await getAllPlants())
+      }, getSettings)
+      checkAndNotify(await getAllPlants(), getSettings())
     }
     init()
 
