@@ -5,12 +5,15 @@
   import TaskItem from '../lib/components/TaskItem.svelte'
   import PestAlert from '../lib/components/PestAlert.svelte'
   import StreakBanner from '../lib/components/StreakBanner.svelte'
+  import Celebration from '../lib/components/Celebration.svelte'
+  import { rollCelebration, type Celebration as CelebrationData } from '../lib/engagement/celebrations'
   import { today as todayDate, formatDate } from '../lib/utils/dates'
   import type { CareTask } from '../lib/types/plant'
 
   let { onSelectPlant, onNavigate } = $props()
 
   let pestInfo = $state<{ count: number; plantNames: string[] }>({ count: 0, plantNames: [] })
+  let activeCelebration = $state<CelebrationData | null>(null)
 
   let todayStr = $derived(formatDate(todayDate().toISOString()))
 
@@ -28,6 +31,7 @@
   async function handleDone(task: CareTask) {
     await logCareAction(task.plantId, task.careType)
     await plantsStore.reload()
+    activeCelebration = rollCelebration()
   }
 
   function handlePestView() {
@@ -119,6 +123,8 @@
       </section>
     {/if}
   {/if}
+
+  <Celebration celebration={activeCelebration} onClose={() => (activeCelebration = null)} />
 </div>
 
 <style>
