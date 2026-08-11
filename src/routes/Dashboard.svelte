@@ -203,7 +203,11 @@
     {/if}
   {/if}
 
-  <Celebration celebration={activeCelebration} onClose={() => (activeCelebration = null)} />
+  <Celebration
+    celebration={activeCelebration}
+    onClose={() => (activeCelebration = null)}
+    stackAbove={pendingUndo !== null}
+  />
 
   {#if pendingUndo}
     <div class="undo-toast" role="status">

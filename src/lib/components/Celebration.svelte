@@ -3,7 +3,17 @@
   import type { Celebration } from '../engagement/celebrations'
   import { prefersReducedMotion } from '../engagement/celebrations'
 
-  let { celebration, onClose }: { celebration: Celebration | null; onClose: () => void } = $props()
+  let {
+    celebration,
+    onClose,
+    stackAbove,
+  }: {
+    celebration: Celebration | null
+    onClose: () => void
+    // When true (e.g. an undo toast is also visible), render the celebration
+    // higher on the y-axis so both toasts remain legible instead of overlapping.
+    stackAbove?: boolean
+  } = $props()
 
   const SHOW_MS = 3200
   let visible = $state(false)
@@ -46,6 +56,7 @@
   <button
     class="celebration"
     class:no-motion={reducedMotion}
+    class:stack-above={stackAbove}
     onclick={dismiss}
     aria-live="polite"
     aria-label="Task complete"
@@ -84,6 +95,12 @@
     font-size: 0.9rem;
     color: var(--color-text);
     animation: pop 0.25s ease-out;
+  }
+
+  /* Render above Dashboard's .undo-toast (bottom: 96px; height ~48-56px)
+     so both toasts remain legible when a completion rolls a celebration. */
+  .celebration.stack-above {
+    bottom: 156px;
   }
 
   .celebration.no-motion {
