@@ -49,4 +49,5 @@ export async function exportAllData(): Promise<Plant[]> {
 export async function clearAllData(): Promise<void> {
   await db.plants.clear()
   await db.appSettings.clear()
+  await db.gardenState.clear()
 }

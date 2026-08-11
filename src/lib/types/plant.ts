@@ -100,6 +100,32 @@ export interface AppSettings {
   notificationsEnabled: boolean
   notificationTime: string
   mutedPlantIds: string[]
+  quietHoursEnabled?: boolean
+  quietHoursStart?: string
+  quietHoursEnd?: string
+}
+
+export type BadgeId =
+  | 'first-plant'
+  | 'streak-7'
+  | 'streak-30'
+  | 'streak-100'
+  | 'pest-free-30'
+  | 'full-garden-water'
+  | 'ten-plants'
+  | 'first-rescue'
+
+export interface UnlockedBadge {
+  id: BadgeId
+  unlockedAt: string
+}
+
+export interface GardenState {
+  id: string
+  graceTokenLastGranted: string
+  graceTokensUsed: string[]
+  unlockedBadges: UnlockedBadge[]
+  lastCelebrationAt?: string
 }
 
 export const CARE_TYPES: CareType[] = ['watering', 'fertilizing', 'repotting', 'pruning']
