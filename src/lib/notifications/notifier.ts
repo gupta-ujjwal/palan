@@ -1,6 +1,7 @@
-import type { Plant } from '../types/plant'
+import type { AppSettings, Plant } from '../types/plant'
 import { getDueTasks } from '../utils/schedule'
-import { CARE_TYPE_ICONS, CARE_TYPE_LABELS } from '../types/plant'
+import { CARE_TYPE_ICONS } from '../types/plant'
+import { buildBundleNotification, isInQuietHours } from '../engagement/notifications'
 
 export async function requestNotificationPermission(): Promise<NotificationPermission> {
   if (!('Notification' in window)) {
@@ -22,28 +23,24 @@ export async function registerServiceWorker(): Promise<ServiceWorkerRegistration
   }
 }
 
-export function checkAndNotify(plants: Plant[]): void {
+export function checkAndNotify(plants: Plant[], settings?: AppSettings): void {
   if (!('Notification' in window) || Notification.permission !== 'granted') return
 
-  const dueTasks = getDueTasks(plants)
+  if (settings && isInQuietHours(settings, new Date())) return
+
+  const muted = new Set(settings?.mutedPlantIds ?? [])
+  const dueTasks = getDueTasks(plants).filter((t) => !muted.has(t.plantId))
   if (dueTasks.length === 0) return
 
   const lastSent = localStorage.getItem('lastNotificationDate')
   const todayStr = new Date().toISOString().slice(0, 10)
   if (lastSent === todayStr) return
 
-  const taskList = dueTasks
-    .map(
-      (t) =>
-        `${t.plantNickname || t.plantName} needs ${CARE_TYPE_LABELS[t.careType].toLowerCase()}`,
-    )
-    .join(', ')
-
-  const title = `Palan: ${dueTasks.length} task${dueTasks.length > 1 ? 's' : ''} today`
+  const { title, body } = buildBundleNotification(dueTasks)
 
   try {
     new Notification(title, {
-      body: taskList,
+      body,
       icon: '/palan/favicon.svg',
       tag: 'plant-care-daily',
     })
@@ -55,11 +52,14 @@ export function checkAndNotify(plants: Plant[]): void {
 
 let timerId: ReturnType<typeof setInterval> | null = null
 
-export function startNotificationTimer(getPlants: () => Plant[]): void {
+export function startNotificationTimer(
+  getPlants: () => Plant[],
+  getSettings?: () => AppSettings | undefined,
+): void {
   stopNotificationTimer()
   timerId = setInterval(
     () => {
-      checkAndNotify(getPlants())
+      checkAndNotify(getPlants(), getSettings?.())
     },
     15 * 60 * 1000, // 15 minutes
   )

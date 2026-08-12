@@ -24,6 +24,7 @@
     "vitest": "^3.2.1"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.112.3",
     "dexie": "^4.0.10"
   },
   "allowScripts": {

@@ -1,15 +1,20 @@
 <script lang="ts">
   import { dueTasks, overdueTasks, todayTasks, upcomingTasks, taskStats } from '../lib/stores/tasks'
   import { plantsStore } from '../lib/stores/plants'
-  import { getUnresolvedPests, logCareAction } from '../lib/db/careLog'
+  import { getUnresolvedPests, logCareAction, undoLastCareAction } from '../lib/db/careLog'
+  import { getPlant } from '../lib/db/plants'
   import TaskItem from '../lib/components/TaskItem.svelte'
   import PestAlert from '../lib/components/PestAlert.svelte'
+  import StreakBanner from '../lib/components/StreakBanner.svelte'
+  import Celebration from '../lib/components/Celebration.svelte'
+  import { rollCelebration, type Celebration as CelebrationData } from '../lib/engagement/celebrations'
   import { today as todayDate, formatDate } from '../lib/utils/dates'
   import type { CareTask } from '../lib/types/plant'
 
   let { onSelectPlant, onNavigate } = $props()
 
   let pestInfo = $state<{ count: number; plantNames: string[] }>({ count: 0, plantNames: [] })
+  let activeCelebration = $state<CelebrationData | null>(null)
 
   let todayStr = $derived(formatDate(todayDate().toISOString()))
 
@@ -24,9 +29,79 @@
     return unsub
   })
 
+  interface PendingUndo {
+    plantId: string
+    plantName: string
+    careType: CareTask['careType']
+    previousLastDone?: string
+    timer: ReturnType<typeof setTimeout>
+  }
+
+  let pendingUndo = $state<PendingUndo | null>(null)
+
+  function scheduleUndoClear() {
+    if (pendingUndo) clearTimeout(pendingUndo.timer)
+  }
+
   async function handleDone(task: CareTask) {
+    scheduleUndoClear()
+    const before = await getPlant(task.plantId)
+    const previousLastDone = before?.careSchedule[task.careType]?.lastDone
+
     await logCareAction(task.plantId, task.careType)
     await plantsStore.reload()
+
+    const timer = setTimeout(() => {
+      pendingUndo = null
+    }, 5000)
+    pendingUndo = {
+      plantId: task.plantId,
+      plantName: task.plantNickname ?? task.plantName,
+      careType: task.careType,
+      previousLastDone,
+      timer,
+    }
+
+    activeCelebration = rollCelebration()
+  }
+
+  async function handleUndo() {
+    const p = pendingUndo
+    if (!p) return
+    scheduleUndoClear()
+    await undoLastCareAction(p.plantId, p.careType, p.previousLastDone)
+    pendingUndo = null
+    await plantsStore.reload()
+  }
+
+  async function handleWaterAllOverdue() {
+    const overdue = $overdueTasks.filter((t) => t.careType === 'watering')
+    const seenPlants = new Set<string>()
+
+    for (const task of overdue.sort((a, b) => a.daysUntilDue - b.daysUntilDue)) {
+      if (seenPlants.has(task.plantId)) continue
+      seenPlants.add(task.plantId)
+
+      const before = await getPlant(task.plantId)
+      const previousLastDone = before?.careSchedule.watering.lastDone
+      await logCareAction(task.plantId, 'watering')
+
+      if (!pendingUndo) {
+        const timer = setTimeout(() => {
+          pendingUndo = null
+        }, 5000)
+        pendingUndo = {
+          plantId: task.plantId,
+          plantName: task.plantNickname ?? task.plantName,
+          careType: 'watering',
+          previousLastDone,
+          timer,
+        }
+      }
+    }
+
+    await plantsStore.reload()
+    activeCelebration = rollCelebration()
   }
 
   function handlePestView() {
@@ -59,6 +134,17 @@
 
   {#if pestInfo.count > 0}
     <PestAlert count={pestInfo.count} plantNames={pestInfo.plantNames} onView={handlePestView} />
+  {/if}
+
+  <StreakBanner />
+
+  {#if $taskStats.totalPlants > 0}
+    {@const waterableOverdue = $overdueTasks.filter((t) => t.careType === 'watering').length}
+    {#if waterableOverdue >= 2}
+      <button class="bulk-water" onclick={handleWaterAllOverdue}>
+        💧 Water all {waterableOverdue} overdue plants
+      </button>
+    {/if}
   {/if}
 
   {#if $taskStats.totalPlants === 0}
@@ -115,6 +201,19 @@
         {/each}
       </section>
     {/if}
+  {/if}
+
+  <Celebration
+    celebration={activeCelebration}
+    onClose={() => (activeCelebration = null)}
+    stackAbove={pendingUndo !== null}
+  />
+
+  {#if pendingUndo}
+    <div class="undo-toast" role="status">
+      <span>Marked done — {pendingUndo.plantName}</span>
+      <button class="undo-btn" onclick={handleUndo}>Undo</button>
+    </div>
   {/if}
 </div>
 
@@ -258,5 +357,58 @@
 
   .upcoming-section {
     opacity: 0.75;
+  }
+
+  .undo-toast {
+    position: fixed;
+    bottom: 96px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 190;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+    font-size: 0.85rem;
+    color: var(--color-text);
+    max-width: 90vw;
+  }
+
+  .undo-btn {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .bulk-water {
+    display: block;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    margin-bottom: 1rem;
+    background: var(--color-surface);
+    border: 2px dashed var(--color-primary-light);
+    border-radius: var(--radius);
+    color: var(--color-primary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background 0.15s,
+      border-color 0.15s;
+  }
+
+  .bulk-water:active {
+    background: var(--color-primary-light);
+    color: white;
   }
 </style>

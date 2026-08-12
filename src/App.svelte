@@ -2,7 +2,9 @@
   import { onMount } from 'svelte'
   import type { Plant } from './lib/types/plant'
   import { plantsStore } from './lib/stores/plants'
+  import { gardenStore } from './lib/stores/garden'
   import { getAllPlants } from './lib/db/plants'
+  import { db } from './lib/db/database'
   import {
     registerServiceWorker,
     startNotificationTimer,
@@ -12,15 +14,16 @@
   import BottomNav from './lib/components/BottomNav.svelte'
   import Dashboard from './routes/Dashboard.svelte'
   import Catalog from './routes/Catalog.svelte'
+  import Growth from './routes/Growth.svelte'
   import PlantDetail from './routes/PlantDetail.svelte'
   import PlantEdit from './routes/PlantEdit.svelte'
   import Settings from './routes/Settings.svelte'
 
-  type View = 'tasks' | 'plants' | 'settings' | 'plant-detail' | 'plant-edit'
+  type View = 'tasks' | 'plants' | 'growth' | 'settings' | 'plant-detail' | 'plant-edit'
 
   let currentView = $state<View>('tasks')
   let selectedPlantId = $state<string | null>(null)
-  let previousTab = $state<'tasks' | 'plants' | 'settings'>('tasks')
+  let previousTab = $state<'tasks' | 'plants' | 'growth' | 'settings'>('tasks')
 
   const activeTab = $derived(
     currentView === 'plant-detail' || currentView === 'plant-edit' ? previousTab : currentView,
@@ -31,7 +34,7 @@
   }
 
   function selectPlant(id: string) {
-    previousTab = currentView as 'tasks' | 'plants' | 'settings'
+    previousTab = currentView as 'tasks' | 'plants' | 'growth' | 'settings'
     selectedPlantId = id
     currentView = 'plant-detail'
   }
@@ -53,13 +56,16 @@
   onMount(() => {
     const init = async () => {
       await plantsStore.load()
+      await gardenStore.load()
       await registerServiceWorker()
+      const settings = await db.appSettings.get('settings')
+      const getSettings = () => settings
       startNotificationTimer(() => {
         let plants: Plant[] = []
         plantsStore.subscribe((p) => (plants = p))()
         return plants
-      })
-      checkAndNotify(await getAllPlants())
+      }, getSettings)
+      checkAndNotify(await getAllPlants(), getSettings())
     }
     init()
 
@@ -74,6 +80,8 @@
     <Dashboard onSelectPlant={selectPlant} onNavigate={navigate} />
   {:else if currentView === 'plants'}
     <Catalog onSelectPlant={selectPlant} />
+  {:else if currentView === 'growth'}
+    <Growth />
   {:else if currentView === 'settings'}
     <Settings />
   {:else if currentView === 'plant-detail' && selectedPlantId}

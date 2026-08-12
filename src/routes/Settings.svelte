@@ -3,9 +3,11 @@
   import { exportAllData, clearAllData } from '../lib/db/plants'
   import { plantsStore } from '../lib/stores/plants'
   import type { AppSettings } from '../lib/types/plant'
+  import CloudSyncSection from '../lib/components/CloudSyncSection.svelte'
 
   let settings = $state<AppSettings>({ ...DEFAULT_SETTINGS })
   let showClearConfirm = $state(false)
+  let showDisableNotifConfirm = $state(false)
 
   $effect(() => {
     const load = async () => {
@@ -28,8 +30,13 @@
         await updateSettings({ notificationsEnabled: true })
       }
     } else {
-      await updateSettings({ notificationsEnabled: false })
+      showDisableNotifConfirm = true
     }
+  }
+
+  async function confirmDisableNotifications() {
+    await updateSettings({ notificationsEnabled: false })
+    showDisableNotifConfirm = false
   }
 
   function handleExportAll() {
@@ -82,6 +89,59 @@
         onchange={(e) => updateSettings({ notificationTime: e.currentTarget.value })}
       />
     </div>
+
+    {#if showDisableNotifConfirm}
+      <div class="confirm-dialog">
+        <p>
+          Disable all reminder notifications? Overdue tasks will only be visible when you open the
+          app.
+        </p>
+        <div class="confirm-actions">
+          <button class="btn-danger" onclick={confirmDisableNotifications}
+            >Yes, disable reminders</button
+          >
+          <button class="btn-secondary" onclick={() => (showDisableNotifConfirm = false)}
+            >Keep them on</button
+          >
+        </div>
+      </div>
+    {/if}
+
+    <div class="setting-row">
+      <div>
+        <p class="setting-label">Quiet Hours</p>
+        <p class="setting-desc">No reminders during this window</p>
+      </div>
+      <label class="toggle">
+        <input
+          type="checkbox"
+          checked={settings.quietHoursEnabled ?? false}
+          disabled={!settings.notificationsEnabled}
+          onchange={(e) => updateSettings({ quietHoursEnabled: e.currentTarget.checked })}
+        />
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+    {#if settings.quietHoursEnabled}
+      <div class="setting-row quiet-range">
+        <div>
+          <p class="setting-label">From</p>
+          <input
+            type="time"
+            value={settings.quietHoursStart ?? '21:00'}
+            onchange={(e) => updateSettings({ quietHoursStart: e.currentTarget.value })}
+          />
+        </div>
+        <div>
+          <p class="setting-label">To</p>
+          <input
+            type="time"
+            value={settings.quietHoursEnd ?? '08:00'}
+            onchange={(e) => updateSettings({ quietHoursEnd: e.currentTarget.value })}
+          />
+        </div>
+      </div>
+    {/if}
   </section>
 
   <section class="settings-section">
@@ -100,6 +160,11 @@
         🗑️ Clear All Data
       </button>
     {/if}
+  </section>
+
+  <section class="settings-section">
+    <h2>Cloud Sync (optional)</h2>
+    <CloudSyncSection />
   </section>
 
   <section class="settings-section">
@@ -274,5 +339,16 @@
     font-size: 0.9rem;
     color: #6c757d;
     margin: 0.25rem 0;
+  }
+
+  .quiet-range {
+    justify-content: flex-start;
+    gap: 1.5rem;
+  }
+
+  .quiet-range > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 </style>
