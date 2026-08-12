@@ -6,6 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:capacitor": "BUILD_TARGET=capacitor vite build",
+    "cap:sync": "npx cap sync",
+    "cap:android": "npx cap open android",
+    "cap:ios": "npx cap open ios",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.app.json",
     "format": "prettier --write .",
@@ -17,6 +21,7 @@
     "@types/node": "^24.13.3",
     "prettier": "^3.3.3",
     "prettier-plugin-svelte": "^3.2.6",
+    "sharp": "^0.35.3",
     "svelte": "^5.56.8",
     "svelte-check": "^4.7.3",
     "typescript": "~6.0.2",
@@ -24,6 +29,10 @@
     "vitest": "^3.2.1"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/cli": "^8.5.0",
+    "@capacitor/core": "^8.5.0",
+    "@capacitor/ios": "^8.5.0",
     "@supabase/supabase-js": "^2.112.3",
     "dexie": "^4.0.10"
   },
