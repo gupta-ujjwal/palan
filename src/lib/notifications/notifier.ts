@@ -2,6 +2,9 @@ import type { AppSettings, Plant } from '../types/plant'
 import { getDueTasks } from '../utils/schedule'
 import { CARE_TYPE_ICONS } from '../types/plant'
 import { buildBundleNotification, isInQuietHours } from '../engagement/notifications'
+import { getNotificationAdapter } from './adapter'
+import { getAllPlants } from '../db/plants'
+import { db } from '../db/database'
 
 export async function requestNotificationPermission(): Promise<NotificationPermission> {
   if (!('Notification' in window)) {
@@ -74,4 +77,13 @@ export function stopNotificationTimer(): void {
 
 export function getCareIcon(careType: string): string {
   return CARE_TYPE_ICONS[careType as keyof typeof CARE_TYPE_ICONS] || '🌿'
+}
+
+// Single entrypoint for "refresh what's scheduled from the latest DB state".
+// Idempotent; safe to call after any mutation that affects what should be
+// scheduled (settings edit, care action logged, plant add/remove/mute change).
+export async function syncScheduledNotificationsFromDb(): Promise<void> {
+  const [plants, settings] = await Promise.all([getAllPlants(), db.appSettings.get('settings')])
+  if (!settings) return
+  await getNotificationAdapter().syncScheduledNotifications(plants, settings)
 }
