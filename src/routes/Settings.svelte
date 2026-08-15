@@ -4,23 +4,44 @@
   import { plantsStore } from '../lib/stores/plants'
   import type { AppSettings } from '../lib/types/plant'
   import CloudSyncSection from '../lib/components/CloudSyncSection.svelte'
+  import { syncScheduledNotificationsFromDb } from '../lib/notifications/notifier'
 
   let settings = $state<AppSettings>({ ...DEFAULT_SETTINGS })
   let showClearConfirm = $state(false)
   let showDisableNotifConfirm = $state(false)
+  let lastNotificationSync = $state<string | null>(null)
 
   $effect(() => {
     const load = async () => {
       const s = await db.appSettings.get('settings')
       if (s) settings = s
+      lastNotificationSync = localStorage.getItem('lastNotificationSync')
     }
     load()
   })
+
+  function formatSyncTime(iso: string | null): string {
+    if (!iso) return 'never'
+    const date = new Date(iso)
+    if (isNaN(date.getTime())) return 'never'
+    const now = new Date()
+    const diffMs = now.getTime() - date.getTime()
+    const diffMin = Math.floor(diffMs / 60000)
+    if (diffMin < 1) return 'just now'
+    if (diffMin < 60) return `${diffMin}m ago`
+    const diffHr = Math.floor(diffMin / 60)
+    if (diffHr < 24) return `${diffHr}h ago`
+    const diffDays = Math.floor(diffHr / 24)
+    return `${diffDays}d ago`
+  }
 
   async function updateSettings(updates: Partial<AppSettings>) {
     const newSettings = { ...settings, ...updates }
     settings = newSettings
     await db.appSettings.put(newSettings)
+    // Fire-and-forget: refresh any scheduled reminders to reflect the change
+    // (quiet hours, notification time, notificationsEnabled, future mute-UI).
+    void syncScheduledNotificationsFromDb().catch(() => {})
   }
 
   async function handleNotificationToggle(enabled: boolean) {
@@ -142,6 +163,13 @@
         </div>
       </div>
     {/if}
+
+    <div class="setting-row">
+      <div>
+        <p class="setting-label">Scheduled Reminders</p>
+        <p class="setting-desc">Last synced: {formatSyncTime(lastNotificationSync)}</p>
+      </div>
+    </div>
   </section>
 
   <section class="settings-section">

@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store'
 import type { Plant } from '../types/plant'
 import { getAllPlants, addPlant, updatePlant, deletePlant } from '../db/plants'
+import { syncScheduledNotificationsFromDb } from '../notifications/notifier'
 
 function createPlantsStore() {
   const { subscribe, set, update } = writable<Plant[]>([])
@@ -21,17 +22,20 @@ function createPlantsStore() {
     const plain = toPlain(plant)
     await addPlant(plain)
     update((plants) => [...plants, plain])
+    void syncScheduledNotificationsFromDb().catch(() => {})
   }
 
   async function save(plant: Plant) {
     const plain = toPlain(plant)
     await updatePlant(plain)
     update((plants) => plants.map((p) => (p.id === plain.id ? plain : p)))
+    void syncScheduledNotificationsFromDb().catch(() => {})
   }
 
   async function remove(id: string) {
     await deletePlant(id)
     update((plants) => plants.filter((p) => p.id !== id))
+    void syncScheduledNotificationsFromDb().catch(() => {})
   }
 
   async function reload() {

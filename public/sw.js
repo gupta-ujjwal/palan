@@ -1,4 +1,4 @@
-const CACHE_NAME = 'plant-care-v1'
+const CACHE_NAME = 'plant-care-v2'
 const APP_SHELL = ['/palan/', '/palan/index.html', '/palan/manifest.json', '/palan/favicon.svg']
 
 self.addEventListener('install', (event) => {

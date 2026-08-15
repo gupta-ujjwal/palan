@@ -2,6 +2,9 @@ import type { AppSettings, Plant } from '../types/plant'
 import { getDueTasks } from '../utils/schedule'
 import { CARE_TYPE_ICONS } from '../types/plant'
 import { buildBundleNotification, isInQuietHours } from '../engagement/notifications'
+import { getNotificationAdapter } from './adapter'
+import { getAllPlants } from '../db/plants'
+import { db } from '../db/database'
 
 export async function requestNotificationPermission(): Promise<NotificationPermission> {
   if (!('Notification' in window)) {
@@ -16,7 +19,7 @@ export async function requestNotificationPermission(): Promise<NotificationPermi
 export async function registerServiceWorker(): Promise<ServiceWorkerRegistration | null> {
   if (!('serviceWorker' in navigator)) return null
   try {
-    const reg = await navigator.serviceWorker.register('/palan/sw.js')
+    const reg = await navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`)
     return reg
   } catch {
     return null
@@ -41,7 +44,7 @@ export function checkAndNotify(plants: Plant[], settings?: AppSettings): void {
   try {
     new Notification(title, {
       body,
-      icon: '/palan/favicon.svg',
+      icon: `${import.meta.env.BASE_URL}favicon.svg`,
       tag: 'plant-care-daily',
     })
     localStorage.setItem('lastNotificationDate', todayStr)
@@ -74,4 +77,13 @@ export function stopNotificationTimer(): void {
 
 export function getCareIcon(careType: string): string {
   return CARE_TYPE_ICONS[careType as keyof typeof CARE_TYPE_ICONS] || '🌿'
+}
+
+// Single entrypoint for "refresh what's scheduled from the latest DB state".
+// Idempotent; safe to call after any mutation that affects what should be
+// scheduled (settings edit, care action logged, plant add/remove/mute change).
+export async function syncScheduledNotificationsFromDb(): Promise<void> {
+  const [plants, settings] = await Promise.all([getAllPlants(), db.appSettings.get('settings')])
+  if (!settings) return
+  await getNotificationAdapter().syncScheduledNotifications(plants, settings)
 }

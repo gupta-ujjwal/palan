@@ -1,6 +1,7 @@
 import { db } from './database'
 import type { HealthLogAction, HealthLogEntry, PestEntry, Plant } from '../types/plant'
 import { toISODate } from '../utils/dates'
+import { syncScheduledNotificationsFromDb } from '../notifications/notifier'
 
 export async function logCareAction(
   plantId: string,
@@ -24,6 +25,10 @@ export async function logCareAction(
   }
 
   await db.plants.update(plantId, { healthLog, careSchedule })
+
+  // Fire-and-forget: refresh the scheduled reminders to reflect the new lastDone.
+  // Errors are swallowed so a notification failure never breaks a care log write.
+  void syncScheduledNotificationsFromDb().catch(() => {})
 }
 
 export async function undoLastCareAction(
@@ -55,6 +60,10 @@ export async function undoLastCareAction(
   }
 
   await db.plants.update(plantId, { healthLog, careSchedule })
+
+  // Fire-and-forget: refresh the scheduled reminders to reflect the new lastDone.
+  // Errors are swallowed so a notification failure never breaks the undo path.
+  void syncScheduledNotificationsFromDb().catch(() => {})
 }
 
 export async function addPestEntry(plantId: string, entry: PestEntry): Promise<void> {
